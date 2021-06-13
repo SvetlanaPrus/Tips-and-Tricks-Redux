@@ -1,23 +1,24 @@
 // @ts-nocheck
-/* Core */
-import { useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-
-/* Other */
 import { icons } from '../theme/icons/nav';
-import { Context } from '../lib';
-import { getToken } from '../lib/redux/selectors';
+import { getToken, getStatus } from '../lib/redux/selectors';
+import { settingsActions } from '../lib/redux/actions';
 
 export const Nav = () => {
     const token = useSelector(getToken);
-    const [isSettingsOpen, setSettingsOpen] = useContext(Context);
 
-    const handleSettingsClick = (event) => {
-        event.preventDefault();
+    const dispatch = useDispatch();
+    const isSettingsOpen = useSelector(getStatus);
 
-        setSettingsOpen(true);
+    const setSettingsOpen = (data) => {
+        dispatch(settingsActions.setStatus(data));
     };
+
+    // const handleSettingsClick = (event) => {
+    //     event.preventDefault();
+    //     setSettingsOpen(true);
+    // };
 
     return (
         <nav className = 'nav'>
@@ -34,7 +35,7 @@ export const Nav = () => {
                 <icons.Publish />
                 Опубликовать
             </NavLink>
-            <a className = { isSettingsOpen ? 'active' : '' } onClick = { handleSettingsClick }>
+            <a className = { isSettingsOpen ? 'active' : '' } onClick = { () => setSettingsOpen(true) }>
                 <icons.Settings />
                 Настройки
             </a>

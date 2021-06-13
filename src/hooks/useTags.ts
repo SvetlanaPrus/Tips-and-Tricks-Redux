@@ -3,7 +3,7 @@
 import { useQuery } from 'react-query';
 
 /* Other */
-import { api } from '../api/api';
+import { api } from '../api';
 
 export const useTags = () => {
     const query = useQuery('tags', api.getTags);

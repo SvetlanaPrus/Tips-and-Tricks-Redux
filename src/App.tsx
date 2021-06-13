@@ -14,11 +14,13 @@ import {
     LoginPage, SignUpPage,
 } from './pages';
 import { getErrorMessage } from './lib/redux/selectors';
+// import { getStatus } from './lib/redux/selectors';
 import { authActions } from './lib/redux/actions';
 
 export const App = () => {
     const dispatch = useDispatch();
     const errorMessage = useSelector(getErrorMessage);
+    // const isSettingsOpen = useSelector(getStatus);
 
     useEffect(() => {
         if (errorMessage) {

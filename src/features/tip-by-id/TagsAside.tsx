@@ -1,20 +1,26 @@
 // @ts-nocheck
 /* Core */
-import { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 /* Components */
+import { useDispatch } from 'react-redux';
 import { Tag } from '../../components';
 
 /* Other */
-import { TagContext } from '../../lib';
 import { fetchify, getTagIcon } from '../../helpers';
 import { useTags } from '../../hooks';
+import { tagsActions } from '../../lib/redux/actions';
 
 export const TagsAside: FC = observer(() => {
-    const [, setSelectedTagId] = useContext(TagContext);
     const { data: tags, isFetched } = useTags();
+    const dispatch = useDispatch();
+
+    const setSelectedTagId = (id) => {
+        const test = tagsActions.setTags(id);
+        dispatch(test);
+    };
 
     const tagsJSX = tags?.map((tag) => {
         const TagIcon = getTagIcon(tag.name);
